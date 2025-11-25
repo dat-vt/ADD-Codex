@@ -27,6 +27,7 @@ frontend/dist
 frontend/dist-tests
 frontend/coverage
 backend/dist
+backend/coverage
 
 # Docker
 db_data
