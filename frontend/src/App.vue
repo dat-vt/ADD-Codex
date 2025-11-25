@@ -1,25 +1,29 @@
 <template>
   <div class="page">
     <header class="topbar">
-      <div class="brand">
-        <span class="logo-dot"></span>
-        Wanderlust
+      <div class="topbar-inner">
+        <div class="brand">
+          <span class="logo-dot"></span>
+          Wanderlust
+        </div>
+        <nav class="menu">
+          <a href="#">Home</a>
+          <a href="#">About</a>
+          <a href="#">Blog</a>
+          <a href="#">Categories</a>
+          <a href="#">Shop</a>
+          <a href="#">Contact</a>
+          <button class="icon-btn" aria-label="Cart">🛒</button>
+        </nav>
       </div>
-      <nav class="menu">
-        <a href="#">Home</a>
-        <a href="#">About</a>
-        <a href="#">Blog</a>
-        <a href="#">Categories</a>
-        <a href="#">Shop</a>
-        <a href="#">Contact</a>
-        <button class="icon-btn" aria-label="Cart">🛒</button>
-      </nav>
     </header>
 
     <section class="hero" :style="{ backgroundImage: `linear-gradient(120deg, rgba(0,0,0,0.4), rgba(10,14,30,0.75)), url(${heroImage})` }">
-      <div class="hero-text">
-        <p class="hero-kicker">Lifestyle | Travel Blog</p>
-        <h1>EXPLORE</h1>
+      <div class="hero-inner">
+        <div class="hero-text">
+          <p class="hero-kicker">Lifestyle | Travel Blog</p>
+          <h1>EXPLORE</h1>
+        </div>
       </div>
     </section>
 
@@ -112,38 +116,40 @@
     </main>
 
     <footer class="footer">
-      <div class="brand">Wanderlust</div>
-      <div class="footer-columns">
-        <div>
-          <h4>Main</h4>
-          <a href="#">Home</a>
-          <a href="#">About</a>
-          <a href="#">Author Story</a>
-          <a href="#">Contact</a>
+      <div class="footer-inner">
+        <div class="brand">Wanderlust</div>
+        <div class="footer-columns">
+          <div>
+            <h4>Main</h4>
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Author Story</a>
+            <a href="#">Contact</a>
+          </div>
+          <div>
+            <h4>Pages</h4>
+            <a href="#">Blog</a>
+            <a href="#">Categories</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Privacy Policy</a>
+          </div>
+          <div>
+            <h4>Utilities</h4>
+            <a href="#">Style Guide</a>
+            <a href="#">Licenses</a>
+            <a href="#">Instructions</a>
+            <a href="#">Changelog</a>
+          </div>
+          <div class="footer-card">
+            <span class="pill">Activities</span>
+            <h4>Camping Survival Tips</h4>
+            <a href="#" class="read-more">Read more</a>
+          </div>
         </div>
-        <div>
-          <h4>Pages</h4>
-          <a href="#">Blog</a>
-          <a href="#">Categories</a>
-          <a href="#">Terms & Conditions</a>
-          <a href="#">Privacy Policy</a>
+        <div class="footer-meta">
+          <p>© 2023 Wanderlust. All Rights Reserved.</p>
+          <p>Built for the ADD Codex demo.</p>
         </div>
-        <div>
-          <h4>Utilities</h4>
-          <a href="#">Style Guide</a>
-          <a href="#">Licenses</a>
-          <a href="#">Instructions</a>
-          <a href="#">Changelog</a>
-        </div>
-        <div class="footer-card">
-          <span class="pill">Activities</span>
-          <h4>Camping Survival Tips</h4>
-          <a href="#" class="read-more">Read more</a>
-        </div>
-      </div>
-      <div class="footer-meta">
-        <p>© 2023 Wanderlust. All Rights Reserved.</p>
-        <p>Built for the ADD Codex demo.</p>
       </div>
     </footer>
   </div>
