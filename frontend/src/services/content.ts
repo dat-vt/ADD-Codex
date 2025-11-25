@@ -81,6 +81,10 @@ const fallbackShop: ShopItem[] = [
 
 let cache: ContentPayload | null = null;
 
+export const resetContentCache = () => {
+  cache = null;
+};
+
 export const fetchContent = async (): Promise<ContentPayload> => {
   if (cache) return cache;
 

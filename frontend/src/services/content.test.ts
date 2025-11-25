@@ -1,16 +1,13 @@
+import assert from "node:assert/strict";
+import { beforeEach, describe, it, mock } from "node:test";
 import axios from "axios";
-import sinon from "sinon";
-import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const loadFetcher = async () => {
-  vi.resetModules();
-  return import("./content");
-};
+import { fetchContent, resetContentCache } from "./content.js";
 
 describe("fetchContent", () => {
   beforeEach(() => {
-    vi.resetModules();
-    sinon.restore();
+    mock.restoreAll();
+    resetContentCache();
   });
 
   it("maps API payload into the expected content structure", async () => {
@@ -25,43 +22,42 @@ describe("fetchContent", () => {
       }
     };
 
-    const axiosStub = sinon.stub(axios, "get").resolves(mockResponse);
-    const { fetchContent } = await loadFetcher();
+    const axiosStub = mock.method(axios, "get", async () => mockResponse);
 
     const result = await fetchContent();
 
-    sinon.assert.calledOnce(axiosStub);
-    sinon.assert.calledWith(axiosStub, "/api/destinations");
+    assert.equal(axiosStub.mock.callCount(), 1);
+    assert.deepEqual(axiosStub.mock.calls[0].arguments, ["/api/destinations"]);
 
-    expect(result.featured).toHaveLength(2);
-    expect(result.featured[0].title).toBe("Coastal Sunrise");
-    expect(result.latest[2].title).toBe("City Lights");
-    expect(result.trending.map((item) => item.category)).toContain("Nepal");
-    expect(result.categories).toEqual(["Spain", "Nepal", "USA", "Canada"]);
+    assert.equal(result.featured.length, 2);
+    assert.equal(result.featured[0].title, "Coastal Sunrise");
+    assert.equal(result.latest[2].title, "City Lights");
+    assert.ok(result.trending.map((item: { category: string }) => item.category).includes("Nepal"));
+    assert.deepEqual(result.categories, ["Spain", "Nepal", "USA", "Canada"]);
   });
 
   it("returns cached payload on subsequent calls without new HTTP requests", async () => {
-    const axiosStub = sinon.stub(axios, "get").resolves({ data: { items: [] } });
-    const { fetchContent } = await loadFetcher();
+    const axiosStub = mock.method(axios, "get", async () => ({ data: { items: [] } }));
 
     const first = await fetchContent();
     const second = await fetchContent();
 
-    sinon.assert.calledOnce(axiosStub);
-    expect(second).toBe(first);
-    expect(second.categories.length).toBeGreaterThan(0);
+    assert.equal(axiosStub.mock.callCount(), 1);
+    assert.strictEqual(second, first);
+    assert.ok(second.categories.length > 0);
   });
 
   it("falls back to local content when the API request fails", async () => {
-    const axiosStub = sinon.stub(axios, "get").rejects(new Error("Network down"));
-    const { fetchContent } = await loadFetcher();
+    const axiosStub = mock.method(axios, "get", async () => {
+      throw new Error("Network down");
+    });
 
     const result = await fetchContent();
 
-    sinon.assert.calledOnce(axiosStub);
-    expect(result.featured).toHaveLength(2);
-    expect(result.latest).toHaveLength(3);
-    expect(result.categories).toContain("All");
-    expect(result.shop.length).toBeGreaterThan(0);
+    assert.equal(axiosStub.mock.callCount(), 1);
+    assert.equal(result.featured.length, 2);
+    assert.equal(result.latest.length, 3);
+    assert.ok(result.categories.includes("All"));
+    assert.ok(result.shop.length > 0);
   });
 });
