@@ -328,6 +328,75 @@ a {
   min-width: 200px;
 }
 
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.contact-card {
+  padding: 22px;
+  gap: 14px;
+}
+
+.contact-card form,
+.contact-card.info {
+  display: grid;
+  gap: 14px;
+}
+
+.contact-card.info h3 {
+  margin: 0;
+}
+
+.contact-card.info p {
+  margin: 4px 0 12px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.field label {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  outline: none;
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 255, 140, 0.12);
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+.contact-card .button {
+  justify-self: start;
+  padding: 12px 24px;
+}
+
+@media (max-width: 900px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .button {
   border: none;
   cursor: pointer;
